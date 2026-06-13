@@ -1,7 +1,10 @@
 [package]
 name = "rodf"
-version = "0.1.0"
+version = "0.0.0"
 edition = "2024"
+description = "Open Document Format library for Rust"
+repository = "https://github.com/tayu0110/rodf.git"
+rust-version = "1.95.0"
 
 [dependencies]
 anyxml = "0.13.0"
