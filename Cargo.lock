@@ -54,7 +54,7 @@ checksum = "9cbc161664f4182958516c394c5afb308a757491e5d70aa950d24fa1fd0ede3d"
 
 [[package]]
 name = "rodf"
-version = "0.1.0"
+version = "0.0.0"
 dependencies = [
  "anyxml",
 ]
