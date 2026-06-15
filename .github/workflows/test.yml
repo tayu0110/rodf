@@ -11,7 +11,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         build: [--release, ~]
-        feature: [odt, odg, odp, ods, odc, odi, odf, odb, ~]
+        feature: [odt, odg, odp, ods, odc, odi, odf, odb, all]
 
     runs-on: ${{ matrix.os }}
 
