@@ -14,7 +14,8 @@ anyxml = "0.13.0"
 zip = "8.6.0"
 
 [features]
-default = ["odt", "odg", "odp", "ods", "odc", "odi", "odf", "odb"]
+default = ["all"]
+all = ["odt", "odg", "odp", "ods", "odc", "odi", "odf", "odb"]
 odt = []
 odg = []
 odp = []

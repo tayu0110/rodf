@@ -9,7 +9,12 @@
 
 use std::io::{Read, Seek};
 
-use anyxml::mediatype::{MediaType, MediaTypeError};
+use anyxml::{
+    error::XMLError,
+    mediatype::{MediaType, MediaTypeError},
+    sax::XMLReader,
+    tree::TreeBuildHandler,
+};
 use zip::{ZipArchive, result::ZipError};
 
 #[derive(Debug)]
@@ -17,6 +22,7 @@ pub enum PackageError {
     ZipError(ZipError),
     IOError(std::io::Error),
     MediaTypeError(MediaTypeError),
+    XMLError(XMLError),
 }
 
 impl From<ZipError> for PackageError {
@@ -37,12 +43,19 @@ impl From<MediaTypeError> for PackageError {
     }
 }
 
+impl From<XMLError> for PackageError {
+    fn from(value: XMLError) -> Self {
+        Self::XMLError(value)
+    }
+}
+
 impl std::fmt::Display for PackageError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::ZipError(err) => write!(f, "{}", err),
             Self::IOError(err) => write!(f, "{}", err),
             Self::MediaTypeError(err) => write!(f, "{}", err),
+            Self::XMLError(err) => write!(f, "{}", err),
         }
     }
 }
@@ -65,9 +78,17 @@ impl<R: Read + Seek> Package<R> {
             mimetype = Some(buf.parse()?);
         }
 
-        let mut manifest_file = archive.by_name("META-INF/manifest.xml")?;
+        let manifest_file = archive.by_name("META-INF/manifest.xml")?;
+        let mut reader = XMLReader::builder()
+            .set_handler(TreeBuildHandler::default())
+            .build();
+        reader.parse_reader(manifest_file, None, None)?;
+        if reader.handler.fatal_error {
+            return Err(PackageError::XMLError(XMLError::InternalError));
+        }
+        let document = reader.handler.document.clone();
 
-        drop(manifest_file);
+        drop(reader);
         Ok(Self {
             mimetype,
             manifest: (),
