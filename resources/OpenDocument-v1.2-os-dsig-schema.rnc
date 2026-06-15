@@ -1,8 +1,0 @@
-# Converted by trang and manually compacted
-namespace ds="http://www.w3.org/2000/09/xmldsig#"
-namespace dsig="urn:oasis:names:tc:opendocument:xmlns:digitalsignature:1.0"
-start=dsig-document-signatures
-dsig-document-signatures=element dsig:document-signatures{dsig-document-signatures-attlist,ds-signature+}
-dsig-document-signatures-attlist=attribute dsig:version{"1.2"}
-ds-signature=element ds:Signature{dsMarkup}
-dsMarkup=(attribute*{text}|text|element*{dsMarkup})*

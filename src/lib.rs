@@ -1,3 +1,7 @@
+#![doc = include_str!("../README.md")]
+
+pub mod package;
+
 /// Elements and attributes that describe animation content.
 ///
 /// # Reference
@@ -18,6 +22,11 @@ pub const ODF_CONFIG_NAMESPACE: &str = "urn:oasis:names:tc:opendocument:xmlns:co
 /// # Reference
 /// - [ISO/IEC 26300-1:2015](https://www.iso.org/standard/66363.html) 1.5 Namespaces Table 1 - XML Namespaces defined by the OpenDocument schema
 pub const ODF_DB_NAMESPACE: &str = "urn:oasis:names:tc:opendocument:xmlns:database:1.0";
+/// Elements and attribute contained in digital signature files.
+///
+/// # Reference
+/// - [ISO/IEC 26300-3:2015](https://www.iso.org/standard/66376.html) 1.5 Namespaces Table 1 - XML Namespaces defined by the OpenDocument specification part 3
+pub const ODF_DSIG_NAMESPACE: &str = "urn:oasis:names:tc:opendocument:xmlns:digitalsignature:1.0";
 /// Elements and attributes that describe 3D graphic content.
 ///
 /// # Reference
@@ -37,6 +46,7 @@ pub const ODF_FORM_NAMESPACE: &str = "urn:oasis:names:tc:opendocument:xmlns:form
 ///
 /// # Reference
 /// - [ISO/IEC 26300-1:2015](https://www.iso.org/standard/66363.html) 1.5 Namespaces Table 1 - XML Namespaces defined by the OpenDocument schema
+/// - [ISO/IEC 26300-3:2015](https://www.iso.org/standard/66376.html) 1.5 Namespaces Table 1 - XML Namespaces defined by the OpenDocument specification part 3
 pub const ODF_MANIFEST_NAMESPACE: &str = "urn:oasis:names:tc:opendocument:xmlns:manifest:1.0";
 /// Elements and attributes that describe meta information.
 ///
@@ -88,6 +98,7 @@ pub const ODF_ODF_NAMESPACE: &str = "http://docs.oasis-open.org/ns/office/1.2/me
 ///
 /// # Reference
 /// - [ISO/IEC 26300-1:2015](https://www.iso.org/standard/66363.html) 1.5 Namespaces Table 5 - XML Namespaces defined by the OpenDocument metadata manifest ontology
+/// - [ISO/IEC 26300-3:2015](https://www.iso.org/standard/66376.html) 1.5 Namespaces Table 2 - XML Namespaces defined by the OpenDocument metadata manifest ontology
 pub const ODF_PKG_NAMESPACE: &str = "http://docs.oasis-open.org/ns/office/1.2/meta/pkg#";
 /// Namespace for formulas defined by part 2 of this specification that occur in attribute values.
 ///

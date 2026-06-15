@@ -11,3 +11,4 @@ rust-version = "1.95.0"
 
 [dependencies]
 anyxml = "0.13.0"
+zip = "8.6.0"
