@@ -12,3 +12,14 @@ rust-version = "1.95.0"
 [dependencies]
 anyxml = "0.13.0"
 zip = "8.6.0"
+
+[features]
+default = ["odt", "odg", "odp", "ods", "odc", "odi", "odf", "odb"]
+odt = []
+odg = []
+odp = []
+ods = []
+odc = []
+odi = []
+odf = []
+odb = []

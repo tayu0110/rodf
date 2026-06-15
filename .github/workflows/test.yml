@@ -11,6 +11,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         build: [--release, ~]
+        feature: [odt, odg, odp, ods, odc, odi, odf, odb, ~]
 
     runs-on: ${{ matrix.os }}
 
@@ -25,4 +26,4 @@ jobs:
           cargo --version
 
       - name: Run `cargo test --workspace`
-        run: cargo test --workspace ${{ matrix.build }}
+        run: cargo test --workspace ${{ matrix.build }} --features ${{ matrix.feature }}
