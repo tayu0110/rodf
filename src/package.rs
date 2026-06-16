@@ -7,15 +7,21 @@
 // tayu@mainpc:~/src/rodf/sample (master *%=)$ ls META-INF/
 // manifest.xml
 
-use std::io::{Read, Seek};
+use std::{
+    io::{Cursor, Read, Seek},
+    sync::LazyLock,
+};
 
 use anyxml::{
     error::XMLError,
-    mediatype::{MediaType, MediaTypeError},
-    sax::XMLReader,
+    mediatype::{ApplicationSubtype::RelaxNgCompactSyntax, MediaType, MediaTypeError},
+    relaxng::RelaxNGSchema,
+    sax::{DefaultSAXHandler, XMLReader},
     tree::TreeBuildHandler,
 };
 use zip::{ZipArchive, result::ZipError};
+
+use crate::ODF_MANIFEST_NAMESPACE;
 
 #[derive(Debug)]
 pub enum PackageError {
@@ -62,6 +68,50 @@ impl std::fmt::Display for PackageError {
 
 impl std::error::Error for PackageError {}
 
+macro_rules! manifest_schema {
+    ( $var:ident, $version:literal, $base:literal ) => {
+        static $var: LazyLock<RelaxNGSchema> = LazyLock::new(|| {
+            let reader = include_bytes!(concat!(
+                "../resources/schemas/",
+                $version,
+                "/",
+                $base,
+                ".zip"
+            ))
+            .as_slice();
+            let mut archive = ZipArchive::new(Cursor::new(reader)).unwrap();
+            let bytes = archive.by_name(concat!($base, ".rnc")).unwrap();
+            RelaxNGSchema::parse_compact_reader(bytes, None, None, None::<DefaultSAXHandler>)
+                .unwrap()
+        });
+    };
+}
+manifest_schema!(
+    MANIFEST_SCHEMA_V10,
+    "v1.0",
+    "OpenDocument-manifest-schema-v1.0-os"
+);
+manifest_schema!(
+    MANIFEST_SCHEMA_V11,
+    "v1.1",
+    "OpenDocument-manifest-schema-v1.1"
+);
+manifest_schema!(
+    MANIFEST_SCHEMA_V12,
+    "v1.2",
+    "OpenDocument-v1.2-os-manifest-schema"
+);
+manifest_schema!(
+    MANIFEST_SCHEMA_V13,
+    "v1.3",
+    "OpenDocument-v1.3-manifest-schema"
+);
+manifest_schema!(
+    MANIFEST_SCHEMA_V14,
+    "v1.4",
+    "OpenDocument-v1.4-manifest-schema"
+);
+
 pub struct Package<R: Read + Seek> {
     mimetype: Option<MediaType>,
     manifest: (),
@@ -87,6 +137,19 @@ impl<R: Read + Seek> Package<R> {
             return Err(PackageError::XMLError(XMLError::InternalError));
         }
         let document = reader.handler.document.clone();
+        let manifest_version = document
+            .document_element()
+            .and_then(|root| root.get_attribute("version", Some(ODF_MANIFEST_NAMESPACE)));
+        // let schema = match manifest_version.as_deref() {
+        //     Some("1.2") => MANIFEST_SCHEMA_V12.clone(),
+        //     Some("1.3") => MANIFEST_SCHEMA_V13.clone(),
+        //     Some("1.4") => MANIFEST_SCHEMA_V14.clone(),
+        //     _ => {
+        //         // Since there is no way to distinguish between 1.1 and 1.0, assume it is 1.1.
+        //         // Also, even if a version is found, if it is unsupported, fall back to 1.1.
+        //         MANIFEST_SCHEMA_V11.clone()
+        //     }
+        // };
 
         drop(reader);
         Ok(Self {
