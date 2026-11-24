@@ -27,9 +27,9 @@ checksum = "7f202df86484c868dbad7eaa557ef785d5c66295e41b460ef922eca0723b842c"
 
 [[package]]
 name = "anyxml"
-version = "0.13.0"
+version = "0.16.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fabee4f3497151f98c654601c058fc66bda08edbcc0e8a77cb6f09ca18eed55c"
+checksum = "38f2cb52e22dc9bf28d7cf5e9e69c2f3769138453aa7979f6984ccab9c3b6bc8"
 dependencies = [
  "anyxml-automata",
  "anyxml-base64",
@@ -41,9 +41,9 @@ dependencies = [
 
 [[package]]
 name = "anyxml-automata"
-version = "0.1.2"
+version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4fe78c3998a5499ff9dce7134db5b295e36ebe8a8a50edb4403c8895c07a2c82"
+checksum = "c96267f8a9704e68a4f5d268b7198c773c861b494b369eacc9524638129f518a"
 
 [[package]]
 name = "anyxml-base64"
@@ -53,15 +53,15 @@ checksum = "67dd95d99a221e707015f3e1bf13d46894f934af01ec47ef0b05acae841a97f4"
 
 [[package]]
 name = "anyxml-datetime"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "21b83c681f4bd9bd770f50e1778ad4ea1fe938c23d809e130eb7d054fd7a128b"
+checksum = "d745d431f9bedac3a116da64c493811e83ebb559a1a2cee59c74d0738538baba"
 
 [[package]]
 name = "anyxml-encoding"
-version = "0.1.2"
+version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f859e31907f663afcede40e8d84816258895c089971737589bc4f5bd8fe23614"
+checksum = "911bbb067cb513d96c0a09c1ec5809e791aaf0e8bc5bbd6f9240d2667b9a8e9e"
 
 [[package]]
 name = "anyxml-mediatype"
@@ -71,9 +71,9 @@ checksum = "683ec84590fe8b15530ad9e4246695d99d7b3acaaaed3a05a217e1f8b81cbe12"
 
 [[package]]
 name = "anyxml-uri"
-version = "0.1.9"
+version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9cbc161664f4182958516c394c5afb308a757491e5d70aa950d24fa1fd0ede3d"
+checksum = "09627b5fafef529803cbb30f326c02951d069535d5039af805adbf19fcc97650"
 
 [[package]]
 name = "bitflags"

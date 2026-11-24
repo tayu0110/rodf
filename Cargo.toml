@@ -10,7 +10,7 @@ keywords = ["odf", "office"]
 rust-version = "1.95.0"
 
 [dependencies]
-anyxml = "0.13.0"
+anyxml = "0.16.3"
 zip = "8.6.0"
 
 [features]
